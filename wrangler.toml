@@ -1,0 +1,11 @@
+name = "zima-blue"
+main = "src/index.ts"
+compatibility_date = "2024-08-10"
+
+[vars]
+# none — secrets via wrangler secret
+
+[[kv_namespaces]]
+binding = "ZIMA_KV"
+id = "564350454d714629ad5b1475ac69bd59"
+preview_id = "564350454d714629ad5b1475ac69bd59"

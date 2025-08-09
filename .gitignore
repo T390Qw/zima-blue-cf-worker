@@ -1,0 +1,9 @@
+# Environment variables (never commit)
+.dev.vars
+
+# Node / build
+node_modules/
+dist/
+.wrangler/
+.env
+*.log
