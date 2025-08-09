@@ -26,16 +26,12 @@ export default {
     const chatId = message.chat.id;
 
     // Plain commands
-    switch (text.split("@")[0]) {
-      case "/start":
-        await sendMessage(chatId, "Hello! I'm Zima Blue.", env.TELEGRAM_BOT_TOKEN);
-        break;
-      case "/help":
-        await sendMessage(chatId, HELP_TEXT, env.TELEGRAM_BOT_TOKEN, "HTML");
-        break;
-      case "/listlinks":
-        await listAllLinks(chatId, env.TELEGRAM_BOT_TOKEN, env.ZIMA_KV);
-        break;
+    if (text === "/start") {
+      await sendMessage(chatId, "Hello! I'm Zima Blue.", env.TELEGRAM_BOT_TOKEN);
+    } else if (text === "/help") {
+      await sendMessage(chatId, HELP_TEXT, env.TELEGRAM_BOT_TOKEN, "HTML");
+    } else if (text === "/listlinks") {
+      await listAllLinks(chatId, env.TELEGRAM_BOT_TOKEN, env.ZIMA_KV);
     }
 
     // Category link collection
@@ -44,7 +40,8 @@ export default {
       const category = match[1].toLowerCase();
       if (CATEGORIES.includes(category as Category)) {
         await collectLinks(chatId, category, match[2], env.TELEGRAM_BOT_TOKEN, env.ZIMA_KV);
-        return new Response("OK");
+      } else {
+        await sendMessage(chatId, "Unknown category.", env.TELEGRAM_BOT_TOKEN);
       }
     }
 
@@ -52,7 +49,6 @@ export default {
     const cat = text.slice(1);
     if (CATEGORIES.includes(cat as Category)) {
       await showCategory(chatId, cat, env.TELEGRAM_BOT_TOKEN, env.ZIMA_KV);
-      return new Response("OK");
     }
 
     return new Response("OK");
